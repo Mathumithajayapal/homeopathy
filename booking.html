@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Book Appointment | Homeopathy Clinic</title>
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 'sans': ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        'ink-black': '#0a0a0a',
+                        'charcoal': '#1a1a1a',
+                        'dark-charcoal': '#121212',
+                        'ruby-mist': '#B83B3B',
+                        'crimson-dark': '#9B2E2E',
+                        'rose-dust': '#C85E5E',
+                        'warm-stone': '#4A2E2E',
+                        'cream-petal': '#FEF8F0',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        /* ========== PROFESSIONAL IMAGE STYLES ========== */
+        .hero-image-container {
+            max-height: 480px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            max-height: 460px;
+            object-fit: cover;
+            object-position: center 25%;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        img:not(.hero-image) {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-image-container {
+                max-height: 320px;
+            }
+
+            .hero-image {
+                max-height: 300px;
+            }
+        }
+
+        /* ========== RTL COMPLETE SUPPORT ========== */
+        html[dir="rtl"] .navbar-flex {
+            flex-direction: row-reverse !important;
+        }
+
+        html[dir="rtl"] .nav-links {
+            order: 2;
+        }
+
+        html[dir="rtl"] .logo-area {
+            order: 3;
+        }
+
+        html[dir="rtl"] .controls-area {
+            order: 1;
+        }
+
+        html[dir="rtl"] .home-dropdown {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        html[dir="rtl"] .fa-arrow-right {
+            transform: scaleX(-1);
+        }
+
+        html[dir="rtl"] .rtl-flip {
+            transform: scaleX(-1);
+        }
+
+        html[dir="rtl"] .text-left,
+        html[dir="rtl"] .sm\:text-left,
+        html[dir="rtl"] .lg\:text-left {
+            text-align: right !important;
+        }
+
+        html[dir="rtl"] .space-x-6> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+
+        html[dir="rtl"] .mr-2 {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+
+        html[dir="rtl"] .ml-2 {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+
+        html[dir="rtl"] .flex.items-center.gap-3 {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .flex.items-center.gap-2 {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .mobile-drawer {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        html[dir="rtl"] .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        /* ========== DARK MODE ========== */
+        html.dark body {
+            background-color: #0a0a0a !important;
+        }
+
+        html.dark .nav-bar {
+            background-color: #111111 !important;
+            border-bottom-color: #2a2a2a !important;
+        }
+
+        html.dark .nav-text,
+        html.dark .footer-text,
+        html.dark .dropdown-item,
+        html.dark .footer-link,
+        html.dark .footer-heading,
+        html.dark p,
+        html.dark h1,
+        html.dark h2,
+        html.dark h3,
+        html.dark h4,
+        html.dark li {
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .text-ruby-mist,
+        html.dark .fa-leaf,
+        html.dark .fa-seedling,
+        html.dark .fa-moon {
+            color: #E07A7A !important;
+        }
+
+        html.dark .btn-primary-dark {
+            background-color: #2a2a2a !important;
+            color: #E07A7A !important;
+            border: 1px solid #4a2e2e;
+        }
+
+        html.dark .btn-primary-dark:hover {
+            background-color: #3a2a2a !important;
+        }
+
+        html.dark .dropdown-bg {
+            background-color: #1a1a1a !important;
+            border-color: #333 !important;
+        }
+
+        html.dark .dropdown-item:hover {
+            background-color: #2a2a2a !important;
+        }
+
+        html.dark .footer-dark {
+            background-color: #0a0a0a !important;
+            border-top-color: #222 !important;
+        }
+
+        html.dark .mobile-menu-dark {
+            background-color: #111111 !important;
+        }
+
+        html.dark .mobile-menu-item {
+            border-bottom-color: #2a2a2a !important;
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .mobile-toggle-btn {
+            background-color: #2a2a2a !important;
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .hero-badge {
+            background-color: #1a1a1a !important;
+            color: #E07A7A !important;
+            border-color: #333 !important;
+        }
+
+        html.dark .newsletter-input {
+            background-color: #1a1a1a !important;
+            border-color: #3a3a3a !important;
+        }
+
+        /* Drawer and overlay styles */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            overflow-y: auto;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            background-color: #FFE2B5;
+        }
+
+        html.dark .mobile-drawer {
+            background-color: #111111 !important;
+            border-left-color: #2a2a2a !important;
+        }
+
+        .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.drawer-open {
+            overflow: hidden;
+        }
+
+        /* Mobile footer logo center fix */
+        @media (max-width: 640px) {
+            footer .logo-area {
+                justify-content: center !important;
+                width: 100%;
+            }
+
+            footer .logo-area>div {
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            footer .logo-area span {
+                display: block;
+                text-align: center;
+            }
+        }
+
+        html[dir="rtl"] footer .logo-area {
+            justify-content: flex-end !important;
+        }
+
+        html[dir="rtl"] footer .logo-area>div {
+            align-items: flex-end !important;
+            text-align: right !important;
+        }
+
+        html[dir="rtl"] footer .logo-area span {
+            text-align: right !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FEF8F0] font-sans antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 w-full border-b border-gray-200 nav-bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="navbar-flex flex justify-between items-center h-16 md:h-20">
+                <a href="index.html" class="logo-area flex-shrink-0 flex items-center gap-2 group">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-[#2E7D32] dark:text-[#4CAF50] text-xl md:text-2xl font-bold tracking-tight flex items-center gap-2">
+                            <i class="fas fa-leaf"></i> HomeoClinic
+                        </span>
+                    </div>
+                </a>
+                <div class="nav-links hidden xl:flex items-center space-x-6 xl:space-x-8">
+                    <div class="relative group">
+                        <a href="#" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition flex items-center gap-1 nav-text">
+                            Home <i class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                        </a>
+                        <div class="home-dropdown absolute left-0 mt-2 w-40 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border border-[#C8E6C9] overflow-hidden dropdown-bg">
+                            <a href="index.html" class="block px-4 py-2.5 text-sm hover:bg-[#E8F5E9] transition flex items-center gap-2 dropdown-item">Home 1</a>
+                            <a href="home2.html" class="block px-4 py-2.5 text-sm hover:bg-[#E8F5E9] transition flex items-center gap-2 border-t border-[#C8E6C9] dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">About</a>
+                    <a href="service.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Service</a>
+                    <a href="pricing.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Pricing</a>
+                    
+                    <!-- ACTIVE LINK: Booking -->
+                    <a href="booking.html" class="text-[#2E7D32] dark:text-[#4CAF50] font-bold text-sm lg:text-base transition nav-text">Booking</a>
+                    
+                    <a href="faq.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">FAQ</a>
+                    <a href="blog.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Blog</a>
+                    <a href="contact.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Contact</a>
+                </div>
+                <div class="controls-area hidden xl:flex items-center gap-3 xl:gap-4">
+                    <a href="Book Appointment.html" class="flex items-center gap-2 bg-[#2E7D32] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-[#1B5E20] transition btn-primary-dark">
+                        <span>Book Appointment</span>
+                    </a>
+                    <div class="h-5 w-px bg-[#A5D6A7] divider-color"></div>
+                    <button id="darkModeToggle" class="flex items-center gap-1.5 text-[#4A2E2E] font-medium text-sm hover:text-[#2E7D32] transition nav-text">
+                        <i id="darkIcon" class="fas fa-moon text-sm"></i> <span id="darkLabel">Dark</span>
+                    </button>
+                    <div class="h-5 w-px bg-[#A5D6A7] divider-color"></div>
+                    <button id="rtlToggle" class="flex items-center gap-1.5 text-[#4A2E2E] font-medium text-sm hover:text-[#2E7D32] transition nav-text">
+                        <span id="rtlLabel">LTR</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-3 xl:hidden">
+                    <button id="mobileMenuBtn" class="nav-text focus:outline-none p-2 rounded-full hover:bg-[#C8E6C9] transition">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HAMBURGER DRAWER ========== -->
+    <div id="drawerOverlay" class="drawer-overlay"></div>
+    <div id="mobileDrawer" class="mobile-drawer bg-[#E8F5E9] border-l border-[#A5D6A7] shadow-xl mobile-menu-dark">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-5 border-b border-[#A5D6A7]">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-leaf text-[#2E7D32] text-xl"></i>
+                    <span class="font-bold text-[#4A2E2E] text-lg nav-text">Menu</span>
+                </div>
+                <button id="closeDrawerBtn" class="text-[#4A2E2E] hover:text-[#2E7D32] transition text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex-1 py-6 px-5 space-y-4 overflow-y-auto">
+                <div>
+                    <div class="flex justify-between items-center py-2 text-[#4A2E2E] font-medium border-b border-[#A5D6A7] nav-text mobile-menu-item">
+                        <span>Home</span>
+                        <button id="drawerHomeBtn"><i id="drawerChevron" class="fas fa-chevron-down text-xs transition-transform"></i></button>
+                    </div>
+                    <div id="drawerSubmenu" class="hidden pl-4 mt-2 space-y-2">
+                        <a href="index.html" class="block py-1.5 text-sm hover:text-[#2E7D32] transition flex items-center gap-2 nav-text">Home 1</a>
+                        <a href="home2.html" class="block py-1.5 text-sm hover:text-[#2E7D32] transition flex items-center gap-2 nav-text">Home 2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">About</a>
+                <a href="service.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Service</a>
+                <a href="pricing.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Pricing</a>
+                
+                <!-- ACTIVE LINK: Booking (Mobile) -->
+                <a href="booking.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item text-[#2E7D32] dark:text-[#4CAF50] font-bold">Booking</a>
+                
+                <a href="faq.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">FAQ</a>
+                <a href="blog.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Blog</a>
+                <a href="contact.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Contact</a>
+                <div class="pt-4 space-y-4">
+                    <a href="Book Appointment.html" class="flex items-center gap-2 nav-text"><i class="far fa-user-circle"></i> Book Appointment</a>
+                    <div class="flex gap-2 pt-2">
+                        <button id="drawerDarkToggle" class="flex-1 flex items-center justify-center gap-2 bg-[#C8E6C9] px-3 py-2 rounded-full text-sm font-medium transition mobile-toggle-btn">
+                            <i id="drawerDarkIcon" class="fas fa-moon text-xs"></i> <span id="drawerDarkLabel">Dark</span>
+                        </button>
+                        <button id="drawerRtlToggle" class="flex-1 flex items-center justify-center gap-2 bg-[#C8E6C9] px-3 py-2 rounded-full text-sm font-medium transition mobile-toggle-btn">
+                            <span id="drawerRtlLabel">LTR</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HERO SECTION (UPDATED FOR BOOKING PAGE) ========== -->
+    <section class="relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-block bg-[#E8F5E9] dark:bg-[#1a1a1a] px-4 py-1.5 rounded-full border border-[#A5D6A7] dark:border-[#2a2a2a] mb-6 hero-badge">
+                        <span class="text-sm font-semibold text-[#2E7D32] dark:text-[#4CAF50] tracking-wider uppercase">Schedule Your Visit</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] leading-tight">
+                        Begin Your <br>
+                        <span class="text-[#2E7D32]">Healing Journey</span>
+                    </h1>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-lg md:text-xl mt-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Select a convenient time for your in-person or virtual homeopathic consultation. Our specialists are ready to guide you towards optimal health.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
+                        <a href="#step-1" class="px-8 py-3.5 bg-[#2E7D32] text-white rounded-full font-semibold shadow-lg hover:bg-[#1B5E20] transition text-center flex items-center justify-center gap-2">
+                            View Available Slots <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="contact.html" class="px-8 py-3.5 border-2 border-[#2E7D32] text-[#2E7D32] rounded-full font-semibold hover:bg-[#E8F5E9] transition text-center flex items-center justify-center gap-2">
+                            Contact Support
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-[#2E7D32]/20 to-[#A5D6A7]/40 rounded-3xl blur-xl"></div>
+                    <div class="relative bg-[#E8F5E9] dark:bg-[#1a1a1a] rounded-3xl overflow-hidden shadow-2xl border border-[#A5D6A7] dark:border-[#2a2a2a] hero-image-container">
+                        <img src="images/homeopathy (11).jpg" alt="Book Homeopathy Appointment" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 1: APPOINTMENT TYPE ========== -->
+    <section id="step-1" class="py-12 md:py-16 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold tracking-wider uppercase text-sm">Step 1</span>
+                <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mt-2">Select Appointment Type</h2>
+                <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mt-3">Choose how you'd like to consult with our specialists.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Option 1 -->
+                <label class="relative flex cursor-pointer rounded-2xl border-2 border-[#2E7D32] bg-[#F1F8E9] dark:bg-[#1a1a1a] p-6 shadow-md hover:shadow-lg transition-all">
+                    <input type="radio" name="appt_type" class="peer sr-only" checked>
+                    <div class="flex flex-col gap-2">
+                        <div class="w-12 h-12 bg-[#2E7D32] text-white rounded-full flex items-center justify-center text-xl mb-2">
+                            <i class="fas fa-clinic-medical"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0]">In-Clinic Visit</h3>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-sm">Traditional face-to-face consultation at our main wellness center.</p>
+                        <span class="font-bold text-[#2E7D32] dark:text-[#4CAF50] mt-2 block">$80 • 45 Mins</span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-6 h-6 rounded-full border-2 border-[#2E7D32] flex items-center justify-center peer-checked:bg-[#2E7D32]">
+                        <div class="w-2.5 h-2.5 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+                    </div>
+                </label>
+                <!-- Option 2 -->
+                <label class="relative flex cursor-pointer rounded-2xl border-2 border-gray-200 dark:border-[#333] bg-white dark:bg-[#111111] p-6 shadow-sm hover:shadow-md transition-all">
+                    <input type="radio" name="appt_type" class="peer sr-only">
+                    <div class="flex flex-col gap-2">
+                        <div class="w-12 h-12 bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] rounded-full flex items-center justify-center text-xl mb-2">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0]">Video Consult</h3>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-sm">Secure online video call from the comfort of your own home.</p>
+                        <span class="font-bold text-[#2E7D32] dark:text-[#4CAF50] mt-2 block">$60 • 30 Mins</span>
+                    </div>
+                    <div class="absolute top-6 right-6 w-6 h-6 rounded-full border-2 border-gray-300 dark:border-[#555] flex items-center justify-center peer-checked:border-[#2E7D32] peer-checked:bg-[#2E7D32]">
+                        <div class="w-2.5 h-2.5 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 2: CHOOSE DOCTOR ========== -->
+    <section class="py-12 md:py-16 bg-[#FEF8F0] dark:bg-[#0a0a0a] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold tracking-wider uppercase text-sm">Step 2</span>
+                <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mt-2">Choose Your Practitioner</h2>
+                <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mt-3">Select a specialist or choose the first available doctor.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <!-- Doc 1 -->
+                <div class="bg-white dark:bg-[#1a1a1a] p-5 rounded-2xl border-2 border-[#2E7D32] shadow-md text-center relative cursor-pointer hover:-translate-y-1 transition-transform">
+                    <div class="absolute top-3 right-3 text-[#2E7D32]"><i class="fas fa-check-circle text-xl"></i></div>
+                    <img src="images/about3.jpg" alt="Dr. Sarah" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-4 border-[#F1F8E9] dark:border-[#333]">
+                    <h4 class="font-bold text-[#4A2E2E] dark:text-[#FEF8F0] text-lg">Dr. Sarah Jenkins</h4>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-xs mb-3">General Homeopathy</p>
+                    <span class="bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] dark:text-[#4CAF50] text-xs font-bold px-3 py-1 rounded-full">Available Today</span>
+                </div>
+                <!-- Doc 2 -->
+                <div class="bg-white dark:bg-[#1a1a1a] p-5 rounded-2xl border border-gray-200 dark:border-[#333] shadow-sm text-center relative cursor-pointer hover:border-[#A5D6A7] hover:-translate-y-1 transition-all">
+                    <img src="images/about4.jpg" alt="Dr. Michael" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-4 border-[#F1F8E9] dark:border-[#333]">
+                    <h4 class="font-bold text-[#4A2E2E] dark:text-[#FEF8F0] text-lg">Dr. Michael Chen</h4>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-xs mb-3">Pediatric Specialist</p>
+                    <span class="bg-gray-100 dark:bg-[#222] text-gray-500 dark:text-[#888] text-xs font-bold px-3 py-1 rounded-full">Next Avail: Tomorrow</span>
+                </div>
+                <!-- Any Doc -->
+                <div class="bg-[#F1F8E9] dark:bg-[#111111] p-5 rounded-2xl border border-dashed border-[#A5D6A7] dark:border-[#444] shadow-sm text-center flex flex-col justify-center items-center cursor-pointer hover:bg-[#E8F5E9] dark:hover:bg-[#1a1a1a] transition-colors">
+                    <div class="w-16 h-16 bg-white dark:bg-[#2a2a2a] rounded-full flex items-center justify-center text-[#2E7D32] text-2xl mb-3 shadow-sm">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h4 class="font-bold text-[#4A2E2E] dark:text-[#FEF8F0] text-lg">First Available</h4>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-xs mt-1">Get the earliest slot</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center hidden md:block">
+                <button class="px-8 py-2 text-[#2E7D32] font-semibold hover:underline">View All Doctors</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 3: DATE & TIME ========== -->
+    <section class="py-12 md:py-16 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold tracking-wider uppercase text-sm">Step 3</span>
+                <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mt-2">Pick Date & Time</h2>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Calendar -->
+                <div class="flex-1 bg-[#FEF8F0] dark:bg-[#1a1a1a] p-6 rounded-2xl border border-gray-200 dark:border-[#333]">
+                    <div class="flex justify-between items-center mb-6">
+                        <button class="text-[#6F4B3B] hover:text-[#2E7D32]"><i class="fas fa-chevron-left"></i></button>
+                        <h4 class="font-bold text-[#4A2E2E] dark:text-[#FEF8F0]">October 2026</h4>
+                        <button class="text-[#6F4B3B] hover:text-[#2E7D32]"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="grid grid-cols-7 gap-2 text-center text-sm mb-2">
+                        <span class="text-[#A5D6A7] font-semibold">Su</span><span class="text-[#6F4B3B] dark:text-[#888]">Mo</span>
+                        <span class="text-[#6F4B3B] dark:text-[#888]">Tu</span><span class="text-[#6F4B3B] dark:text-[#888]">We</span>
+                        <span class="text-[#6F4B3B] dark:text-[#888]">Th</span><span class="text-[#6F4B3B] dark:text-[#888]">Fr</span>
+                        <span class="text-[#A5D6A7] font-semibold">Sa</span>
+                    </div>
+                    <div class="grid grid-cols-7 gap-2 text-center text-sm">
+                        <span class="p-2 text-gray-300 dark:text-[#444]">27</span><span class="p-2 text-gray-300 dark:text-[#444]">28</span>
+                        <span class="p-2 text-gray-300 dark:text-[#444]">29</span><span class="p-2 text-gray-300 dark:text-[#444]">30</span>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">1</button>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">2</button>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">3</button>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">4</button>
+                        <button class="p-2 bg-[#2E7D32] text-white font-bold rounded-lg shadow-md">5</button>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">6</button>
+                        <button class="p-2 hover:bg-[#E8F5E9] rounded-lg text-[#4A2E2E] dark:text-[#C9BDA8]">7</button>
+                    </div>
+                </div>
+                <!-- Time Slots -->
+                <div class="flex-1">
+                    <h4 class="font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-4 text-center md:text-left">Available on Oct 5</h4>
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <button class="py-2 border border-gray-200 dark:border-[#333] rounded-lg text-sm text-[#6F4B3B] dark:text-[#C9BDA8] hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors">09:00 AM</button>
+                        <button class="py-2 border border-gray-200 dark:border-[#333] rounded-lg text-sm text-[#6F4B3B] dark:text-[#C9BDA8] hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors">09:30 AM</button>
+                        <button class="py-2 bg-[#E8F5E9] dark:bg-[#1a1a1a] border-2 border-[#2E7D32] rounded-lg text-sm font-bold text-[#2E7D32] dark:text-[#4CAF50] shadow-sm">10:00 AM</button>
+                        <button class="py-2 border border-gray-200 dark:border-[#333] rounded-lg text-sm text-[#6F4B3B] dark:text-[#C9BDA8] hover:border-[#2E7D32] hover:text-[#2E7D32] transition-colors">11:00 AM</button>
+                        <button class="py-2 border border-gray-200 dark:border-[#333] rounded-lg text-sm text-[#6F4B3B] dark:text-[#C9BDA8] opacity-50 cursor-not-allowed line-through">11:30 AM</button>
+                    </div>
+                    <div class="p-4 bg-[#F1F8E9] dark:bg-[#1a1a1a] rounded-xl flex items-center gap-3 border border-[#C5E1A5] dark:border-[#333]">
+                        <i class="fas fa-info-circle text-[#2E7D32]"></i>
+                        <p class="text-xs text-[#6F4B3B] dark:text-[#C9BDA8]">Times are shown in your local timezone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 4: PATIENT DETAILS ========== -->
+    <section class="py-12 md:py-16 bg-[#FEF8F0] dark:bg-[#0a0a0a] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold tracking-wider uppercase text-sm">Step 4</span>
+                <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mt-2">Your Details</h2>
+                <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mt-3">Please provide your contact information to secure the booking.</p>
+            </div>
+            <form class="bg-white dark:bg-[#111111] p-6 md:p-8 rounded-2xl border border-gray-200 dark:border-[#333] shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-[#4A2E2E] dark:text-[#C9BDA8] mb-2">First Name *</label>
+                        <input type="text" placeholder="John" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-[#444] bg-[#FEF8F0] dark:bg-[#1a1a1a] focus:ring-2 focus:ring-[#2E7D32] focus:outline-none dark:text-white transition-all">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-[#4A2E2E] dark:text-[#C9BDA8] mb-2">Last Name *</label>
+                        <input type="text" placeholder="Doe" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-[#444] bg-[#FEF8F0] dark:bg-[#1a1a1a] focus:ring-2 focus:ring-[#2E7D32] focus:outline-none dark:text-white transition-all">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-[#4A2E2E] dark:text-[#C9BDA8] mb-2">Email Address *</label>
+                        <input type="email" placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-[#444] bg-[#FEF8F0] dark:bg-[#1a1a1a] focus:ring-2 focus:ring-[#2E7D32] focus:outline-none dark:text-white transition-all">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="block text-sm font-medium text-[#4A2E2E] dark:text-[#C9BDA8] mb-2">Phone Number *</label>
+                        <input type="tel" placeholder="+1 (555) 000-0000" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-[#444] bg-[#FEF8F0] dark:bg-[#1a1a1a] focus:ring-2 focus:ring-[#2E7D32] focus:outline-none dark:text-white transition-all">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-[#4A2E2E] dark:text-[#C9BDA8] mb-2">Reason for Visit (Optional)</label>
+                    <textarea rows="4" placeholder="Briefly describe your symptoms or reason for consultation..." class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-[#444] bg-[#FEF8F0] dark:bg-[#1a1a1a] focus:ring-2 focus:ring-[#2E7D32] focus:outline-none dark:text-white transition-all resize-none"></textarea>
+                </div>
+                <div class="mt-6 flex items-start gap-3">
+                    <input type="checkbox" id="new_patient" class="mt-1 w-4 h-4 text-[#2E7D32] focus:ring-[#2E7D32] rounded">
+                    <label for="new_patient" class="text-sm text-[#6F4B3B] dark:text-[#888]">I am a new patient. Please send me the medical history intake forms prior to my appointment.</label>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 5: SUMMARY & CONFIRMATION ========== -->
+    <section class="py-12 md:py-16 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold tracking-wider uppercase text-sm">Final Step</span>
+                <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mt-2">Review & Confirm</h2>
+            </div>
+            <div class="bg-[#F1F8E9] dark:bg-[#1a1a1a] rounded-3xl p-6 md:p-10 border border-[#C5E1A5] dark:border-[#333] shadow-lg relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-[#A5D6A7] dark:text-[#2a2a2a] opacity-20"><i class="fas fa-stethoscope text-9xl"></i></div>
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-[#C5E1A5] dark:border-[#333] pb-8 mb-8">
+                    <div>
+                        <h4 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-1">In-Clinic Consultation</h4>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] flex items-center gap-2 mb-1"><i class="far fa-calendar-alt text-[#2E7D32]"></i> Monday, Oct 5, 2026</p>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] flex items-center gap-2 mb-1"><i class="far fa-clock text-[#2E7D32]"></i> 10:00 AM (45 Mins)</p>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] flex items-center gap-2"><i class="far fa-user text-[#2E7D32]"></i> Dr. Sarah Jenkins</p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <p class="text-sm text-[#6F4B3B] dark:text-[#888] uppercase tracking-wide">Consultation Fee</p>
+                        <p class="text-4xl font-bold text-[#2E7D32] dark:text-[#4CAF50]">$80.00</p>
+                        <p class="text-xs text-[#6F4B3B] dark:text-[#888] mt-1">Pay at clinic. No card required now.</p>
+                    </div>
+                </div>
+                <div class="relative z-10 flex flex-col items-center">
+                    <label class="flex items-center gap-3 mb-6 cursor-pointer text-left w-full max-w-lg">
+                        <input type="checkbox" class="w-5 h-5 text-[#2E7D32] rounded focus:ring-[#2E7D32]">
+                        <span class="text-sm text-[#6F4B3B] dark:text-[#C9BDA8]">I agree to the <a href="#" class="text-[#2E7D32] font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-[#2E7D32] font-semibold hover:underline">Cancellation Policy</a>.</span>
+                    </label>
+                    <button class="w-full max-w-lg bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold text-lg py-4 rounded-full shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <i class="fas fa-check-circle"></i> Confirm Appointment
+                    </button>
+                    <div class="flex items-center justify-center gap-4 mt-6 text-gray-400 dark:text-[#555] text-sm w-full">
+                        <span class="flex items-center gap-1"><i class="fas fa-lock"></i> Secure Booking</span>
+                        <span>•</span>
+                        <span class="flex items-center gap-1"><i class="fas fa-shield-alt"></i> HIPAA Compliant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#F1F8E9] border-t border-[#C5E1A5] pt-10 md:pt-12 pb-6 md:pb-8 footer-dark mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="text-center sm:text-left">
+                    <a href="index.html" class="logo-area flex-shrink-0 flex items-center gap-2 group">
+                        <div class="flex flex-col leading-tight">
+                            <span class="text-[#2E7D32] dark:text-[#4CAF50] text-xl md:text-2xl font-bold tracking-tight flex items-center gap-2">
+                                <i class="fas fa-leaf"></i> HomeoClinic
+                            </span>
+                        </div>
+                    </a>
+                    <p class="text-[#6F4B3B] text-sm leading-relaxed text-secondary-dark mt-4">Holistic healing & natural care. Personalized remedies designed for your total wellness.</p>
+                    <div class="flex justify-center sm:justify-start gap-4 mt-4">
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Home</a></li>
+                        <li><a href="service.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Shop New Drops</a></li>
+                        <li><a href="service.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Discover Rituals</a></li>
+                        <li><a href="service.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Collections</a></li>
+                    </ul>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">About Us</a></li>
+                        <li><a href="contact.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Contact</a></li>
+                        <li><a href="faq.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">FAQs</a></li>
+                        <li><a href="faq.html" class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Mail Box</h4>
+                    <p class="text-[#6F4B3B] text-sm mb-3 text-secondary-dark">Subscribe for wellness updates & tips.</p>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-full bg-white/70 border border-[#C5E1A5] focus:outline-none focus:border-[#2E7D32] text-sm flex-1 newsletter-input dark:bg-[#1a1a1a] dark:text-white">
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-[#C5E1A5] mt-6 md:mt-8 pt-5 md:pt-6 text-center text-[#2E7D32] text-xs footer-border">
+                <p>© 2026 HomeoClinic — natural wellness center. All rights reserved.</p>
+                <div class="flex justify-center gap-4 mt-2">
+                    <a href="#" class="hover:text-[#1B5E20] transition footer-link">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-[#1B5E20] transition footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT LOGIC ========== -->
+    <script>
+            (function () {
+                const html = document.documentElement;
+                const darkToggle = document.getElementById('darkModeToggle');
+                const darkIcon = document.getElementById('darkIcon');
+                const darkLabel = document.getElementById('darkLabel');
+                const drawerDarkToggle = document.getElementById('drawerDarkToggle');
+                const drawerDarkIcon = document.getElementById('drawerDarkIcon');
+                const drawerDarkLabel = document.getElementById('drawerDarkLabel');
+
+                function updateDarkUI(isDark) {
+                    const iconClass = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+                    const label = isDark ? 'Light' : 'Dark';
+                    if (darkIcon) darkIcon.className = iconClass;
+                    if (darkLabel) darkLabel.innerText = label;
+                    if (drawerDarkIcon) drawerDarkIcon.className = iconClass.replace('text-sm', 'text-xs');
+                    if (drawerDarkLabel) drawerDarkLabel.innerText = label;
+                }
+                if (localStorage.getItem('inkwhisper_dark') === 'enabled') {
+                    html.classList.add('dark');
+                    updateDarkUI(true);
+                } else {
+                    updateDarkUI(false);
+                }
+                function toggleDark() {
+                    if (html.classList.contains('dark')) {
+                        html.classList.remove('dark');
+                        localStorage.setItem('inkwhisper_dark', 'disabled');
+                        updateDarkUI(false);
+                    } else {
+                        html.classList.add('dark');
+                        localStorage.setItem('inkwhisper_dark', 'enabled');
+                        updateDarkUI(true);
+                    }
+                }
+                if (darkToggle) darkToggle.addEventListener('click', toggleDark);
+                if (drawerDarkToggle) drawerDarkToggle.addEventListener('click', toggleDark);
+
+                const rtlBtn = document.getElementById('rtlToggle');
+                const rtlLabelSpan = document.getElementById('rtlLabel');
+                const drawerRtlBtn = document.getElementById('drawerRtlToggle');
+                const drawerRtlLabel = document.getElementById('drawerRtlLabel');
+
+                function setDirection(dir) {
+                    html.setAttribute('dir', dir);
+                    localStorage.setItem('inkwhisper_dir', dir);
+                    const label = dir === 'rtl' ? 'RTL' : 'LTR';
+                    if (rtlLabelSpan) rtlLabelSpan.innerText = label;
+                    if (drawerRtlLabel) drawerRtlLabel.innerText = label;
+                    document.body.style.display = 'none';
+                    document.body.offsetHeight;
+                    document.body.style.display = '';
+                }
+                const savedDir = localStorage.getItem('inkwhisper_dir');
+                setDirection(savedDir === 'rtl' ? 'rtl' : 'ltr');
+                function toggleRTL() {
+                    setDirection(html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl');
+                }
+                if (rtlBtn) rtlBtn.addEventListener('click', toggleRTL);
+                if (drawerRtlBtn) drawerRtlBtn.addEventListener('click', toggleRTL);
+
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const drawer = document.getElementById('mobileDrawer');
+                const overlay = document.getElementById('drawerOverlay');
+                const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+                const body = document.body;
+
+                function openDrawer() {
+                    drawer.classList.add('open');
+                    overlay.classList.add('open');
+                    body.classList.add('drawer-open');
+                }
+                function closeDrawer() {
+                    drawer.classList.remove('open');
+                    overlay.classList.remove('open');
+                    body.classList.remove('drawer-open');
+                }
+                if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+                if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+                if (overlay) overlay.addEventListener('click', closeDrawer);
+
+                const drawerHomeBtn = document.getElementById('drawerHomeBtn');
+                const drawerSubmenu = document.getElementById('drawerSubmenu');
+                const drawerChevron = document.getElementById('drawerChevron');
+                if (drawerHomeBtn && drawerSubmenu) {
+                    drawerHomeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const hidden = drawerSubmenu.classList.contains('hidden');
+                        if (hidden) {
+                            drawerSubmenu.classList.remove('hidden');
+                            if (drawerChevron) drawerChevron.style.transform = 'rotate(180deg)';
+                        } else {
+                            drawerSubmenu.classList.add('hidden');
+                            if (drawerChevron) drawerChevron.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                }
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 1280 && drawer.classList.contains('open')) {
+                        closeDrawer();
+                    }
+                });
+            })();
+    </script>
+</body>
+
+</html>

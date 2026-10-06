@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Wellness Blog | Homeopathy Clinic</title>
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 'sans': ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        'ink-black': '#0a0a0a',
+                        'charcoal': '#1a1a1a',
+                        'dark-charcoal': '#121212',
+                        'ruby-mist': '#B83B3B',
+                        'crimson-dark': '#9B2E2E',
+                        'rose-dust': '#C85E5E',
+                        'warm-stone': '#4A2E2E',
+                        'cream-petal': '#FEF8F0',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        /* ========== PROFESSIONAL IMAGE STYLES ========== */
+        .hero-image-container {
+            max-height: 480px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            max-height: 460px;
+            object-fit: cover;
+            object-position: center 25%;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        img:not(.hero-image) {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-image-container {
+                max-height: 320px;
+            }
+
+            .hero-image {
+                max-height: 300px;
+            }
+        }
+
+        /* ========== RTL COMPLETE SUPPORT ========== */
+        html[dir="rtl"] .navbar-flex {
+            flex-direction: row-reverse !important;
+        }
+
+        html[dir="rtl"] .nav-links {
+            order: 2;
+        }
+
+        html[dir="rtl"] .logo-area {
+            order: 3;
+        }
+
+        html[dir="rtl"] .controls-area {
+            order: 1;
+        }
+
+        html[dir="rtl"] .home-dropdown {
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        html[dir="rtl"] .fa-arrow-right {
+            transform: scaleX(-1);
+        }
+
+        html[dir="rtl"] .rtl-flip {
+            transform: scaleX(-1);
+        }
+
+        html[dir="rtl"] .text-left,
+        html[dir="rtl"] .sm\:text-left,
+        html[dir="rtl"] .lg\:text-left {
+            text-align: right !important;
+        }
+
+        html[dir="rtl"] .space-x-6> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+
+        html[dir="rtl"] .mr-2 {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+
+        html[dir="rtl"] .ml-2 {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+
+        html[dir="rtl"] .flex.items-center.gap-3 {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .flex.items-center.gap-2 {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .mobile-drawer {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        html[dir="rtl"] .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        /* ========== DARK MODE ========== */
+        html.dark body {
+            background-color: #0a0a0a !important;
+        }
+
+        html.dark .nav-bar {
+            background-color: #111111 !important;
+            border-bottom-color: #2a2a2a !important;
+        }
+
+        html.dark .nav-text,
+        html.dark .footer-text,
+        html.dark .dropdown-item,
+        html.dark .footer-link,
+        html.dark .footer-heading,
+        html.dark p,
+        html.dark h1,
+        html.dark h2,
+        html.dark h3,
+        html.dark h4,
+        html.dark li {
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .text-ruby-mist,
+        html.dark .fa-leaf,
+        html.dark .fa-seedling,
+        html.dark .fa-moon {
+            color: #E07A7A !important;
+        }
+
+        html.dark .btn-primary-dark {
+            background-color: #2a2a2a !important;
+            color: #E07A7A !important;
+            border: 1px solid #4a2e2e;
+        }
+
+        html.dark .btn-primary-dark:hover {
+            background-color: #3a2a2a !important;
+        }
+
+        html.dark .dropdown-bg {
+            background-color: #1a1a1a !important;
+            border-color: #333 !important;
+        }
+
+        html.dark .dropdown-item:hover {
+            background-color: #2a2a2a !important;
+        }
+
+        html.dark .footer-dark {
+            background-color: #0a0a0a !important;
+            border-top-color: #222 !important;
+        }
+
+        html.dark .mobile-menu-dark {
+            background-color: #111111 !important;
+        }
+
+        html.dark .mobile-menu-item {
+            border-bottom-color: #2a2a2a !important;
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .mobile-toggle-btn {
+            background-color: #2a2a2a !important;
+            color: #FEF8F0 !important;
+        }
+
+        html.dark .hero-badge {
+            background-color: #1a1a1a !important;
+            color: #E07A7A !important;
+            border-color: #333 !important;
+        }
+
+        html.dark .newsletter-input {
+            background-color: #1a1a1a !important;
+            border-color: #3a3a3a !important;
+        }
+
+        /* Drawer and overlay styles */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            overflow-y: auto;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            background-color: #FFE2B5;
+        }
+
+        html.dark .mobile-drawer {
+            background-color: #111111 !important;
+            border-left-color: #2a2a2a !important;
+        }
+
+        .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.drawer-open {
+            overflow: hidden;
+        }
+
+        /* Mobile footer logo center fix */
+        @media (max-width: 640px) {
+            footer .logo-area {
+                justify-content: center !important;
+                width: 100%;
+            }
+
+            footer .logo-area>div {
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            footer .logo-area span {
+                display: block;
+                text-align: center;
+            }
+        }
+
+        html[dir="rtl"] footer .logo-area {
+            justify-content: flex-end !important;
+        }
+
+        html[dir="rtl"] footer .logo-area>div {
+            align-items: flex-end !important;
+            text-align: right !important;
+        }
+
+        html[dir="rtl"] footer .logo-area span {
+            text-align: right !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FEF8F0] font-sans antialiased">
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 w-full border-b border-gray-200 nav-bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="navbar-flex flex justify-between items-center h-16 md:h-20">
+                <a href="index.html" class="logo-area flex-shrink-0 flex items-center gap-2 group">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-[#2E7D32] dark:text-[#4CAF50] text-xl md:text-2xl font-bold tracking-tight flex items-center gap-2">
+                            <i class="fas fa-leaf"></i> HomeoClinic
+                        </span>
+                    </div>
+                </a>
+                <div class="nav-links hidden xl:flex items-center space-x-6 xl:space-x-8">
+                    <div class="relative group">
+                        <a href="#" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition flex items-center gap-1 nav-text">
+                            Home <i class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                        </a>
+                        <div class="home-dropdown absolute left-0 mt-2 w-40 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border border-[#C8E6C9] overflow-hidden dropdown-bg">
+                            <a href="index.html" class="block px-4 py-2.5 text-sm hover:bg-[#E8F5E9] transition flex items-center gap-2 dropdown-item">Home 1</a>
+                            <a href="home2.html" class="block px-4 py-2.5 text-sm hover:bg-[#E8F5E9] transition flex items-center gap-2 border-t border-[#C8E6C9] dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">About</a>
+                    <a href="service.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Service</a>
+                    <a href="pricing.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Pricing</a>
+                    <a href="booking.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Booking</a>
+                    <a href="faq.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">FAQ</a>
+
+                    <!-- ACTIVE LINK: Blog -->
+                    <a href="blog.html" class="text-[#2E7D32] dark:text-[#4CAF50] font-bold text-sm lg:text-base transition nav-text">Blog</a>
+
+                    <a href="contact.html" class="text-[#4A2E2E] font-medium text-sm lg:text-base hover:text-[#2E7D32] transition nav-text">Contact</a>
+                </div>
+                <div class="controls-area hidden xl:flex items-center gap-3 xl:gap-4">
+                    <a href="Book Appointment.html" class="flex items-center gap-2 bg-[#2E7D32] text-white px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-[#1B5E20] transition btn-primary-dark">
+                        <span>Book Appointment</span>
+                    </a>
+                    <div class="h-5 w-px bg-[#A5D6A7] divider-color"></div>
+                    <button id="darkModeToggle" class="flex items-center gap-1.5 text-[#4A2E2E] font-medium text-sm hover:text-[#2E7D32] transition nav-text">
+                        <i id="darkIcon" class="fas fa-moon text-sm"></i> <span id="darkLabel">Dark</span>
+                    </button>
+                    <div class="h-5 w-px bg-[#A5D6A7] divider-color"></div>
+                    <button id="rtlToggle" class="flex items-center gap-1.5 text-[#4A2E2E] font-medium text-sm hover:text-[#2E7D32] transition nav-text">
+                        <span id="rtlLabel">LTR</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-3 xl:hidden">
+                    <button id="mobileMenuBtn" class="nav-text focus:outline-none p-2 rounded-full hover:bg-[#C8E6C9] transition">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HAMBURGER DRAWER ========== -->
+    <div id="drawerOverlay" class="drawer-overlay"></div>
+    <div id="mobileDrawer" class="mobile-drawer bg-[#E8F5E9] border-l border-[#A5D6A7] shadow-xl mobile-menu-dark">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-5 border-b border-[#A5D6A7]">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-leaf text-[#2E7D32] text-xl"></i>
+                    <span class="font-bold text-[#4A2E2E] text-lg nav-text">Menu</span>
+                </div>
+                <button id="closeDrawerBtn" class="text-[#4A2E2E] hover:text-[#2E7D32] transition text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex-1 py-6 px-5 space-y-4 overflow-y-auto">
+                <div>
+                    <div class="flex justify-between items-center py-2 text-[#4A2E2E] font-medium border-b border-[#A5D6A7] nav-text mobile-menu-item">
+                        <span>Home</span>
+                        <button id="drawerHomeBtn"><i id="drawerChevron" class="fas fa-chevron-down text-xs transition-transform"></i></button>
+                    </div>
+                    <div id="drawerSubmenu" class="hidden pl-4 mt-2 space-y-2">
+                        <a href="index.html" class="block py-1.5 text-sm hover:text-[#2E7D32] transition flex items-center gap-2 nav-text">Home 1</a>
+                        <a href="home2.html" class="block py-1.5 text-sm hover:text-[#2E7D32] transition flex items-center gap-2 nav-text">Home 2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">About</a>
+                <a href="service.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Service</a>
+                <a href="pricing.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Pricing</a>
+                <a href="booking.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Booking</a>
+                <a href="faq.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">FAQ</a>
+
+                <!-- ACTIVE LINK: Blog (Mobile) -->
+                <a href="blog.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item text-[#2E7D32] dark:text-[#4CAF50] font-bold">Blog</a>
+
+                <a href="contact.html" class="block py-2 border-b border-[#A5D6A7] nav-text mobile-menu-item">Contact</a>
+                <div class="pt-4 space-y-4">
+                    <a href="Book Appointment.html" class="flex items-center gap-2 nav-text"><i class="far fa-user-circle"></i> Book Appointment</a>
+                    <div class="flex gap-2 pt-2">
+                        <button id="drawerDarkToggle" class="flex-1 flex items-center justify-center gap-2 bg-[#C8E6C9] px-3 py-2 rounded-full text-sm font-medium transition mobile-toggle-btn">
+                            <i id="drawerDarkIcon" class="fas fa-moon text-xs"></i> <span id="drawerDarkLabel">Dark</span>
+                        </button>
+                        <button id="drawerRtlToggle" class="flex-1 flex items-center justify-center gap-2 bg-[#C8E6C9] px-3 py-2 rounded-full text-sm font-medium transition mobile-toggle-btn">
+                            <span id="drawerRtlLabel">LTR</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HERO SECTION (UPDATED FOR BLOG PAGE) ========== -->
+    <section class="relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-block bg-[#E8F5E9] dark:bg-[#1a1a1a] px-4 py-1.5 rounded-full border border-[#A5D6A7] dark:border-[#2a2a2a] mb-6 hero-badge">
+                        <span class="text-sm font-semibold text-[#2E7D32] dark:text-[#4CAF50] tracking-wider uppercase">Wellness Insights</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] leading-tight">
+                        Insights for a <br>
+                        <span class="text-[#2E7D32]">Healthier Life</span>
+                    </h1>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-lg md:text-xl mt-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Discover the latest articles on holistic living, natural remedies, and expert advice from our experienced homeopaths.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
+                        <a href="#latest-posts" class="px-8 py-3.5 bg-[#2E7D32] text-white rounded-full font-semibold shadow-lg hover:bg-[#1B5E20] transition text-center flex items-center justify-center gap-2">
+                            Read Latest Posts <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="service.html" class="px-8 py-3.5 border-2 border-[#2E7D32] text-[#2E7D32] rounded-full font-semibold hover:bg-[#E8F5E9] transition text-center flex items-center justify-center gap-2">
+                            Explore Treatments
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-[#2E7D32]/20 to-[#A5D6A7]/40 rounded-3xl blur-xl"></div>
+                    <div class="relative bg-[#E8F5E9] dark:bg-[#1a1a1a] rounded-3xl overflow-hidden shadow-2xl border border-[#A5D6A7] dark:border-[#2a2a2a] hero-image-container">
+                        <img src="images/homeopathy (3).jpg" alt="Natural Wellness Blog" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 1: FEATURED POST ========== -->
+    <section id="latest-posts" class="py-16 md:py-20 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-10 bg-[#F1F8E9] dark:bg-[#1a1a1a] rounded-3xl overflow-hidden border border-[#C5E1A5] dark:border-[#2a2a2a] shadow-lg group">
+                <div class="lg:w-1/2 relative overflow-hidden">
+                    <img src="images/homeopathy (2).jpg" 
+                         alt="Featured Post" 
+                         class="w-full h-full object-cover min-h-[300px] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-[#2E7D32] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+                            Featured
+                        </span>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-[#2E7D32] dark:text-[#4CAF50] font-semibold text-sm uppercase tracking-wide">Immunity</span>
+                        <span class="text-[#6F4B3B] dark:text-[#C9BDA8] text-sm flex items-center gap-1"><i class="far fa-calendar-alt"></i> Oct 12, 2026</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-6 leading-tight group-hover:text-[#2E7D32] transition-colors">
+                        5 Natural Ways to Boost Your Family's Immune System This Winter
+                    </h2>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-lg mb-8 leading-relaxed">
+                        As the colder months approach, safeguarding your family's health becomes a top priority. Discover holistic strategies, dietary adjustments, and proven homeopathic remedies that naturally strengthen your body's defenses.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-6 border-t border-[#C5E1A5] dark:border-[#333]">
+                        <div class="flex items-center gap-3">
+                            <img src="images/homeopathy (11).jpg" alt="Author" class="w-12 h-12 rounded-full border-2 border-white shadow-sm">
+                            <span class="font-semibold text-[#4A2E2E] dark:text-[#FEF8F0]">Dr. Sarah Jenkins</span>
+                        </div>
+                        <a href="#" class="text-[#2E7D32] dark:text-[#4CAF50] font-bold hover:underline flex items-center gap-2 group-hover:gap-3 transition-all">
+                            Read Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 2: BLOG CATEGORIES ========== -->
+    <section class="py-12 bg-[#FEF8F0] dark:bg-[#0a0a0a] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-4">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0]">Explore Topics</h2>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mt-2 text-lg">Find articles tailored to your specific wellness journey.</p>
+                </div>
+                <a href="#" class="px-6 py-2 border-2 border-[#2E7D32] text-[#2E7D32] dark:text-[#4CAF50] dark:border-[#4CAF50] rounded-full font-semibold hover:bg-[#2E7D32] hover:text-white transition-colors">
+                    View All Topics
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <a href="#" class="group bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center gap-5">
+                    <div class="w-16 h-16 bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] rounded-full flex items-center justify-center text-3xl group-hover:bg-[#2E7D32] group-hover:text-white transition-colors"><i class="fas fa-leaf"></i></div>
+                    <h3 class="font-bold text-lg text-[#4A2E2E] dark:text-[#FEF8F0]">Natural Remedies</h3>
+                    <span class="text-sm text-[#6F4B3B] dark:text-[#888]">24 Articles</span>
+                </a>
+                <a href="#" class="group bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center gap-5">
+                    <div class="w-16 h-16 bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] rounded-full flex items-center justify-center text-3xl group-hover:bg-[#2E7D32] group-hover:text-white transition-colors"><i class="fas fa-child"></i></div>
+                    <h3 class="font-bold text-lg text-[#4A2E2E] dark:text-[#FEF8F0]">Child Health</h3>
+                    <span class="text-sm text-[#6F4B3B] dark:text-[#888]">18 Articles</span>
+                </a>
+                <a href="#" class="group bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center gap-5">
+                    <div class="w-16 h-16 bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] rounded-full flex items-center justify-center text-3xl group-hover:bg-[#2E7D32] group-hover:text-white transition-colors"><i class="fas fa-brain"></i></div>
+                    <h3 class="font-bold text-lg text-[#4A2E2E] dark:text-[#FEF8F0]">Mental Wellness</h3>
+                    <span class="text-sm text-[#6F4B3B] dark:text-[#888]">32 Articles</span>
+                </a>
+                <a href="#" class="group bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center flex flex-col items-center justify-center gap-5">
+                    <div class="w-16 h-16 bg-[#E8F5E9] dark:bg-[#2a2a2a] text-[#2E7D32] rounded-full flex items-center justify-center text-3xl group-hover:bg-[#2E7D32] group-hover:text-white transition-colors"><i class="fas fa-apple-alt"></i></div>
+                    <h3 class="font-bold text-lg text-[#4A2E2E] dark:text-[#FEF8F0]">Diet & Nutrition</h3>
+                    <span class="text-sm text-[#6F4B3B] dark:text-[#888]">15 Articles</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 3: RECENT ARTICLES GRID ========== -->
+    <section class="py-16 md:py-24 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-12 text-center relative">
+                Recently Published
+                <span class="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 w-16 h-1 bg-[#2E7D32] rounded-full"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <article class="bg-[#FEF8F0] dark:bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl transition-shadow group flex flex-col cursor-pointer">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="images/homeopathy (3).jpg" alt="Sleep" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/95 dark:bg-black/90 px-4 py-1.5 rounded-full text-xs font-bold text-[#2E7D32] shadow-sm">Lifestyle</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <p class="text-sm text-[#6F4B3B] dark:text-[#C9BDA8] mb-3 font-medium"><i class="far fa-calendar-alt mr-1"></i> Sep 28, 2026</p>
+                        <h3 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-4 group-hover:text-[#2E7D32] transition-colors leading-snug">Understanding the Homeopathic Approach to Insomnia</h3>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mb-8 line-clamp-3 leading-relaxed">Struggling to get a good night's rest? Learn how individualizing treatment can help resolve the root causes of sleep disturbances without groggy side effects.</p>
+                        <a href="#" class="mt-auto text-[#2E7D32] dark:text-[#4CAF50] font-bold flex items-center gap-2 group-hover:gap-3 transition-all uppercase tracking-wide text-sm">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="bg-[#FEF8F0] dark:bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl transition-shadow group flex flex-col cursor-pointer">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="images/homeopathy (4).jpg" alt="Skin Care" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/95 dark:bg-black/90 px-4 py-1.5 rounded-full text-xs font-bold text-[#2E7D32] shadow-sm">Dermatology</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <p class="text-sm text-[#6F4B3B] dark:text-[#C9BDA8] mb-3 font-medium"><i class="far fa-calendar-alt mr-1"></i> Sep 15, 2026</p>
+                        <h3 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-4 group-hover:text-[#2E7D32] transition-colors leading-snug">Managing Eczema Naturally: A Parent's Guide</h3>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mb-8 line-clamp-3 leading-relaxed">Explore gentle, non-steroidal solutions for children suffering from eczema. We discuss triggers, dietary changes, and common holistic remedies.</p>
+                        <a href="#" class="mt-auto text-[#2E7D32] dark:text-[#4CAF50] font-bold flex items-center gap-2 group-hover:gap-3 transition-all uppercase tracking-wide text-sm">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="bg-[#FEF8F0] dark:bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#E8F5E9] dark:border-[#2a2a2a] shadow-sm hover:shadow-xl transition-shadow group flex flex-col cursor-pointer">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="images/homeopathy (5).jpg" alt="Allergies" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/95 dark:bg-black/90 px-4 py-1.5 rounded-full text-xs font-bold text-[#2E7D32] shadow-sm">Immunity</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-1">
+                        <p class="text-sm text-[#6F4B3B] dark:text-[#C9BDA8] mb-3 font-medium"><i class="far fa-calendar-alt mr-1"></i> Sep 02, 2026</p>
+                        <h3 class="text-xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-4 group-hover:text-[#2E7D32] transition-colors leading-snug">Seasonal Allergies: How to Prepare Before They Hit</h3>
+                        <p class="text-[#6F4B3B] dark:text-[#C9BDA8] mb-8 line-clamp-3 leading-relaxed">Don't wait for the pollen to start falling. Discover proactive measures you can take now to reduce your reactivity during allergy season.</p>
+                        <a href="#" class="mt-auto text-[#2E7D32] dark:text-[#4CAF50] font-bold flex items-center gap-2 group-hover:gap-3 transition-all uppercase tracking-wide text-sm">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center mt-12">
+                <button class="px-10 py-3.5 bg-[#E8F5E9] dark:bg-[#1a1a1a] text-[#2E7D32] dark:text-[#4CAF50] border border-[#A5D6A7] dark:border-[#333] rounded-full font-bold hover:bg-[#2E7D32] hover:text-white dark:hover:bg-[#4CAF50] dark:hover:text-[#111111] transition-colors">
+                    Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 4: NEWSLETTER SIGNUP ========== -->
+    <section class="py-16 md:py-24 bg-[#E8F5E9] dark:bg-[#0a0a0a] transition-colors duration-300">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl p-10 md:p-16 shadow-2xl border border-[#C5E1A5] dark:border-[#2a2a2a] text-center relative overflow-hidden">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-[#2E7D32] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-[#A5D6A7] rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-[#F1F8E9] dark:bg-[#2a2a2a] text-[#2E7D32] dark:text-[#4CAF50] rounded-full flex items-center justify-center text-4xl mx-auto mb-8 shadow-inner">
+                        <i class="far fa-envelope-open"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-5">Subscribe to Our Wellness Digest</h2>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] max-w-2xl mx-auto text-lg mb-10 leading-relaxed">
+                        Join over 10,000 subscribers receiving weekly holistic tips, expert insights, and exclusive natural health remedies directly in their inbox.
+                    </p>
+                    <form class="flex flex-col sm:flex-row max-w-xl mx-auto gap-4 relative">
+                        <input type="email" placeholder="Enter your email address" required
+                            class="flex-1 px-6 py-4 rounded-full bg-[#FEF8F0] dark:bg-[#111111] border-2 border-[#C5E1A5] dark:border-[#333] focus:outline-none focus:border-[#2E7D32] text-[#4A2E2E] dark:text-white transition-colors text-lg">
+                        <button type="submit"
+                            class="px-10 py-4 bg-[#2E7D32] text-white font-bold text-lg rounded-full hover:bg-[#1B5E20] transition-colors shadow-lg whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="text-sm text-[#6F4B3B] dark:text-[#888] mt-6 flex items-center justify-center gap-2">
+                        <i class="fas fa-shield-alt text-[#2E7D32]"></i> We respect your privacy. No spam, ever.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 5: EXPERT SPOTLIGHT ========== -->
+    <section class="py-16 md:py-24 bg-white dark:bg-[#111111] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-b border-[#E8F5E9] dark:border-[#2a2a2a] py-14 flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+                <div class="w-56 h-56 md:w-72 md:h-72 flex-shrink-0 relative mx-auto md:mx-0">
+                    <img src="images/about5.jpg" 
+                         alt="Dr. Jenkins" 
+                         class="w-full h-full object-cover rounded-full border-8 border-white dark:border-[#111111] shadow-xl relative z-10">
+                </div>
+                <div class="text-center md:text-left flex-1">
+                    <div class="inline-flex items-center gap-2 bg-[#F1F8E9] dark:bg-[#1a1a1a] px-4 py-2 rounded-full border border-[#C5E1A5] dark:border-[#333] mb-4">
+                        <i class="fas fa-pen-nib text-[#2E7D32]"></i>
+                        <span class="text-[#2E7D32] dark:text-[#4CAF50] font-bold text-sm uppercase tracking-wider">Meet Our Head Author</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#4A2E2E] dark:text-[#FEF8F0] mb-4">Dr. Sarah Jenkins</h2>
+                    <h3 class="text-xl text-[#6F4B3B] dark:text-[#888] mb-6 font-medium">B.H.M.S, M.D. (Homeopathy)</h3>
+                    <p class="text-[#6F4B3B] dark:text-[#C9BDA8] text-lg leading-relaxed mb-8 max-w-3xl">
+                        Dr. Jenkins is a globally recognized homeopathic practitioner with a passion for educating the public on natural healing. Through this blog, she translates decades of clinical experience into actionable, everyday wellness tips that empower families to take charge of their health naturally.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6">
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="w-12 h-12 rounded-full bg-[#E8F5E9] dark:bg-[#1a1a1a] flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32] hover:text-white transition-colors shadow-sm"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-[#E8F5E9] dark:bg-[#1a1a1a] flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32] hover:text-white transition-colors shadow-sm"><i class="fab fa-linkedin-in text-lg"></i></a>
+                        </div>
+                        <div class="hidden sm:block w-px h-10 bg-[#C5E1A5] dark:bg-[#333]"></div>
+                        <a href="#" class="text-[#2E7D32] dark:text-[#4CAF50] font-bold text-base uppercase tracking-wide hover:underline flex items-center gap-2">
+                            View All Articles by Dr. Jenkins <i class="fas fa-chevron-right text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-[#F1F8E9] border-t border-[#C5E1A5] pt-10 md:pt-12 pb-6 md:pb-8 footer-dark mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="text-center sm:text-left">
+                    <a href="index.html" class="logo-area flex-shrink-0 flex items-center gap-2 group">
+                        <div class="flex flex-col leading-tight">
+                            <span
+                                class="text-[#2E7D32] dark:text-[#4CAF50] text-xl md:text-2xl font-bold tracking-tight flex items-center gap-2">
+                                <i class="fas fa-leaf"></i> HomeoClinic
+                            </span>
+                        </div>
+                    </a>
+                    <p class="text-[#6F4B3B] text-sm leading-relaxed text-secondary-dark mt-4">Holistic healing &
+                        natural care. Personalized remedies designed for your total wellness.</p>
+                    <div class="flex justify-center sm:justify-start gap-4 mt-4">
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i
+                                class="fab fa-pinterest-p"></i></a>
+                        <a href="#" class="text-[#2E7D32] hover:text-[#1B5E20] transition text-xl social-icon"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Home</a></li>
+                        <li><a href="service.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Shop New
+                                Drops</a></li>
+                        <li><a href="service.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Discover
+                                Rituals</a></li>
+                        <li><a href="service.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Collections</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">About Us</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Contact</a>
+                        </li>
+                        <li><a href="faq.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">FAQs</a></li>
+                        <li><a href="faq.html"
+                                class="text-[#6F4B3B] hover:text-[#2E7D32] transition text-sm footer-link">Shipping &
+                                Returns</a></li>
+                    </ul>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-[#4A2E2E] font-semibold text-lg mb-4 footer-heading">Mail Box</h4>
+                    <p class="text-[#6F4B3B] text-sm mb-3 text-secondary-dark">Subscribe for wellness updates & tips.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="Your email"
+                            class="px-4 py-2 rounded-full bg-white/70 border border-[#C5E1A5] focus:outline-none focus:border-[#2E7D32] text-sm flex-1 newsletter-input dark:bg-[#1a1a1a] dark:text-white">
+                    </div>
+                </div>
+            </div>
+            <div
+                class="border-t border-[#C5E1A5] mt-6 md:mt-8 pt-5 md:pt-6 text-center text-[#2E7D32] text-xs footer-border">
+                <p>© 2026 HomeoClinic — natural wellness center. All rights reserved.</p>
+                <div class="flex justify-center gap-4 mt-2">
+                    <a href="#" class="hover:text-[#1B5E20] transition footer-link">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-[#1B5E20] transition footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT LOGIC ========== -->
+    <script>
+            (function () {
+                const html = document.documentElement;
+                const darkToggle = document.getElementById('darkModeToggle');
+                const darkIcon = document.getElementById('darkIcon');
+                const darkLabel = document.getElementById('darkLabel');
+                const drawerDarkToggle = document.getElementById('drawerDarkToggle');
+                const drawerDarkIcon = document.getElementById('drawerDarkIcon');
+                const drawerDarkLabel = document.getElementById('drawerDarkLabel');
+
+                function updateDarkUI(isDark) {
+                    const iconClass = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+                    const label = isDark ? 'Light' : 'Dark';
+                    if (darkIcon) darkIcon.className = iconClass;
+                    if (darkLabel) darkLabel.innerText = label;
+                    if (drawerDarkIcon) drawerDarkIcon.className = iconClass.replace('text-sm', 'text-xs');
+                    if (drawerDarkLabel) drawerDarkLabel.innerText = label;
+                }
+                if (localStorage.getItem('inkwhisper_dark') === 'enabled') {
+                    html.classList.add('dark');
+                    updateDarkUI(true);
+                } else {
+                    updateDarkUI(false);
+                }
+                function toggleDark() {
+                    if (html.classList.contains('dark')) {
+                        html.classList.remove('dark');
+                        localStorage.setItem('inkwhisper_dark', 'disabled');
+                        updateDarkUI(false);
+                    } else {
+                        html.classList.add('dark');
+                        localStorage.setItem('inkwhisper_dark', 'enabled');
+                        updateDarkUI(true);
+                    }
+                }
+                if (darkToggle) darkToggle.addEventListener('click', toggleDark);
+                if (drawerDarkToggle) drawerDarkToggle.addEventListener('click', toggleDark);
+
+                const rtlBtn = document.getElementById('rtlToggle');
+                const rtlLabelSpan = document.getElementById('rtlLabel');
+                const drawerRtlBtn = document.getElementById('drawerRtlToggle');
+                const drawerRtlLabel = document.getElementById('drawerRtlLabel');
+
+                function setDirection(dir) {
+                    html.setAttribute('dir', dir);
+                    localStorage.setItem('inkwhisper_dir', dir);
+                    const label = dir === 'rtl' ? 'RTL' : 'LTR';
+                    if (rtlLabelSpan) rtlLabelSpan.innerText = label;
+                    if (drawerRtlLabel) drawerRtlLabel.innerText = label;
+                    document.body.style.display = 'none';
+                    document.body.offsetHeight;
+                    document.body.style.display = '';
+                }
+                const savedDir = localStorage.getItem('inkwhisper_dir');
+                setDirection(savedDir === 'rtl' ? 'rtl' : 'ltr');
+                function toggleRTL() {
+                    setDirection(html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl');
+                }
+                if (rtlBtn) rtlBtn.addEventListener('click', toggleRTL);
+                if (drawerRtlBtn) drawerRtlBtn.addEventListener('click', toggleRTL);
+
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const drawer = document.getElementById('mobileDrawer');
+                const overlay = document.getElementById('drawerOverlay');
+                const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+                const body = document.body;
+
+                function openDrawer() {
+                    drawer.classList.add('open');
+                    overlay.classList.add('open');
+                    body.classList.add('drawer-open');
+                }
+                function closeDrawer() {
+                    drawer.classList.remove('open');
+                    overlay.classList.remove('open');
+                    body.classList.remove('drawer-open');
+                }
+                if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+                if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+                if (overlay) overlay.addEventListener('click', closeDrawer);
+
+                const drawerHomeBtn = document.getElementById('drawerHomeBtn');
+                const drawerSubmenu = document.getElementById('drawerSubmenu');
+                const drawerChevron = document.getElementById('drawerChevron');
+                if (drawerHomeBtn && drawerSubmenu) {
+                    drawerHomeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const hidden = drawerSubmenu.classList.contains('hidden');
+                        if (hidden) {
+                            drawerSubmenu.classList.remove('hidden');
+                            if (drawerChevron) drawerChevron.style.transform = 'rotate(180deg)';
+                        } else {
+                            drawerSubmenu.classList.add('hidden');
+                            if (drawerChevron) drawerChevron.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                }
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 1280 && drawer.classList.contains('open')) {
+                        closeDrawer();
+                    }
+                });
+            })();
+    </script>
+</body>
+
+</html>
